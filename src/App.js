@@ -3,19 +3,20 @@ import './App.css';
 import io from 'socket.io-client'
 import 'semantic-ui-css/semantic.min.css'
 import { Grid } from 'semantic-ui-react'
-import { connect } from 'react-redux';
 import Namespaces from './components/Namespaces'
 import Rooms from './components/Rooms'
 import Chat from './components/Chat'
 const socket = io('http://localhost:3000')
 
-function App(props) {
+function App() {
 
   // let nsSocket
   let [nsSocket, setNsSocket] = useState(null)
   const [namespaces, setNamespaces] = useState([])
   const [rooms, setRooms] = useState([])
   const [messages, setMessages] = useState([])
+  let [nsActive, setNsActive] = useState(null)
+  let [roomActive, setRoomActive] = useState(null)
 
   useEffect(() => {
     socket.on('nsList', (nsList) => {
@@ -29,37 +30,45 @@ function App(props) {
     }
     // TODO get messages for this ns
     // messages = ...
-    nsSocket = io(`http://localhost:3000${props.namespaceActive}`)
-    nsSocket.on('nsRoomLoad', nsRooms => {
-      setRooms(nsRooms)
-    })
-    nsSocket.on('messageToClients', (msg) => {
-      setMessages([...messages, msg])
-    })
-  },[props.namespaceActive])
+    setNsSocket(io(`http://localhost:3000${nsActive}`))
+  },[nsActive])
 
   useEffect(() => {
-    nsSocket.emit('joinRoom', props.roomActive, (newNumberOfMembers) => {
-      // update number of members
-    })
+    if (nsSocket) {
+      console.log(nsSocket, 'LLLLL')
+      nsSocket.on('nsRoomLoad', nsRooms => {
+        setRooms(nsRooms)
+      })
+      nsSocket.on('messageToClients', (msg) => {
+        setMessages([...messages, msg])
+      })
+    }
+  }, [nsSocket])
 
-    nsSocket.on('getHistory', (history) => {
-      setMessages(history)
-    })
-
-    nsSocket.on('updateMembers', (numMembers) => {
-      // update number of members of the room
-    })
-    console.log(props.roomActive, 'ROOM ACTIVE')
-  }, [props.roomActive])
+  useEffect(() => {
+    if (nsSocket) {
+      console.log('LOLLL')
+      nsSocket.emit('joinRoom', roomActive, (newNumberOfMembers) => {
+        // update number of members
+      })
+  
+      nsSocket.on('getHistory', (history) => {
+        setMessages(history)
+      })
+  
+      nsSocket.on('updateMembers', (numMembers) => {
+        // update number of members of the room
+      })
+    }
+  }, [roomActive, nsSocket])
 
 
   return (
     <div className="App">
       <Grid>
         <Grid.Row>
-          <Namespaces namespaces={namespaces}></Namespaces>
-          <Rooms rooms={rooms}></Rooms>
+          <Namespaces namespaces={namespaces} selectNs={setNsActive}></Namespaces>
+          <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
           <Chat messages={[]}></Chat>
         </Grid.Row>
       </Grid>
@@ -67,11 +76,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { 
-    namespaceActive: (state || {}).namespaceActive || null,
-    roomActive: (state || {}).roomActive || null
-  }
-}
-
-export default connect(mapStateToProps, null)(App);
+export default App;

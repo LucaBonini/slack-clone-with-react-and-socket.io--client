@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Grid, Image } from 'semantic-ui-react'
-import { selectNs } from '../actions'
 
 
 function namespaces(props) {
@@ -17,14 +15,4 @@ function namespaces(props) {
     </Grid.Column>
   )
 }
-
-// const mapStateToProps = (state) => {
-//   console.log(state, 'state')
-//   return { namespaceActive: (state || {}).namespaceActive || null}
-// }
-
-
-export default connect(
-  null,
-  { selectNs }
-)(namespaces)
+export default namespaces

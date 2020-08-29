@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react'
-import { selectRoom } from '../actions'
 
 function rooms(props) {
   return (
@@ -19,5 +17,4 @@ function rooms(props) {
   )
 }
 
-
-export default connect(null, { selectRoom })(rooms)
+export default rooms
