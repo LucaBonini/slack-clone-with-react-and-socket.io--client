@@ -13,10 +13,10 @@ function Chat({ messages, setMessageToSend, roomName, activeMembers }) {
   }
 
   return (
-      <Grid.Column width={10}>
+      <Grid.Column width={12}>
         <Container>
           {roomName}
-          <Icon name={'user'}>{activeMembers}</Icon>
+          <Icon name='user'>{activeMembers}</Icon>
         </Container>
         <Divider></Divider>
         <Messages messages={messages}></Messages>

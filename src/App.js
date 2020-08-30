@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import io from 'socket.io-client'
 import 'semantic-ui-css/semantic.min.css'
 import { Grid } from 'semantic-ui-react'
@@ -18,6 +17,11 @@ function App() {
   let [roomActive, setRoomActive] = useState(null)
   let [messageToSend, setMessageToSend] = useState('')
   let [activeMembers, setActiveMembers] = useState(0)
+
+  // TODO add the bearer in the headers using io.on
+  // useEffect(() => {
+  //   io.on()
+  // }, [])
 
   useEffect(() => {
     socket.on('nsList', (nsList) => {
