@@ -13,29 +13,27 @@ function App() {
   // let nsSocket
   let [nsSocket, setNsSocket] = useState(null)
   const [namespaces, setNamespaces] = useState([])
-  const [rooms, setRooms] = useState([])
+  let [rooms, setRooms] = useState([])
   const [messages, setMessages] = useState([])
   let [nsActive, setNsActive] = useState(null)
   let [roomActive, setRoomActive] = useState(null)
+  let [messageToSend, setMessageToSend] = useState('')
 
   useEffect(() => {
     socket.on('nsList', (nsList) => {
       setNamespaces(nsList)
     })
-  }, [])
+  }, [namespaces])
 
   useEffect(() => {    
     if (nsSocket) {
       nsSocket.close()
     }
-    // TODO get messages for this ns
-    // messages = ...
     setNsSocket(io(`http://localhost:3000${nsActive}`))
   },[nsActive])
 
   useEffect(() => {
     if (nsSocket) {
-      console.log(nsSocket, 'LLLLL')
       nsSocket.on('nsRoomLoad', nsRooms => {
         setRooms(nsRooms)
       })
@@ -43,25 +41,40 @@ function App() {
         setMessages([...messages, msg])
       })
     }
-  }, [nsSocket])
+  }, [nsSocket, messages])
+
+  useEffect(() => {
+    if (rooms.length) {
+      setRoomActive(rooms[0].roomTitle)
+    }
+  }, [rooms])
 
   useEffect(() => {
     if (nsSocket) {
-      console.log('LOLLL')
       nsSocket.emit('joinRoom', roomActive, (newNumberOfMembers) => {
         // update number of members
+        console.log('ROOOOOm  JOINEEEd CB')
       })
-  
-      nsSocket.on('getHistory', (history) => {
-        setMessages(history)
-      })
+      // TODO not sure about this below
+      nsSocket.removeListener('getHistory').removeListener('updateMembers')
+      if (roomActive) {
+        nsSocket.on('getHistory', (history) => {
+          setMessages(history)
+        })
+      }
   
       nsSocket.on('updateMembers', (numMembers) => {
         // update number of members of the room
       })
     }
-  }, [roomActive, nsSocket])
+  }, [roomActive])
 
+  useEffect(() => {
+    if (messageToSend) {
+      nsSocket.emit('newMessageToServer',{text: messageToSend})
+      setMessageToSend('')
+    }
+  }, [messageToSend])
 
   return (
     <div className="App">
@@ -69,7 +82,10 @@ function App() {
         <Grid.Row>
           <Namespaces namespaces={namespaces} selectNs={setNsActive}></Namespaces>
           <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
-          <Chat messages={[]}></Chat>
+          { roomActive ? 
+            <Chat messages={messages} setMessageToSend={setMessageToSend}></Chat>
+            : null
+          }
         </Grid.Row>
       </Grid>
     </div>

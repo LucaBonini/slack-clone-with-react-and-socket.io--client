@@ -2,17 +2,15 @@ import React from 'react';
 import { List } from 'semantic-ui-react'
 import Message from './Message'
 
-function messages(props) {
+function messages({ messages }) {
   return (
-    <div>
-      <List>
+      <List floated={'left'}>
         {
-          props.messages.map(msg => {
-            return <Message text={msg.text}></Message>
+          messages.map(msg => {
+            return <Message key={msg.time} text={msg.text}></Message>
           })
         }
       </List>
-    </div>
   )
 }
 
