@@ -7,7 +7,7 @@ function messages({ messages }) {
       <List floated={'left'}>
         {
           messages.map(msg => {
-            return <Message key={msg.time} text={msg.text}></Message>
+            return <Message key={msg.date} text={msg.text}></Message>
           })
         }
       </List>

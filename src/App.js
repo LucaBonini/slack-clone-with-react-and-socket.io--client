@@ -10,7 +10,6 @@ const socket = io('http://localhost:3000')
 
 function App() {
 
-  // let nsSocket
   let [nsSocket, setNsSocket] = useState(null)
   const [namespaces, setNamespaces] = useState([])
   let [rooms, setRooms] = useState([])
@@ -18,6 +17,7 @@ function App() {
   let [nsActive, setNsActive] = useState(null)
   let [roomActive, setRoomActive] = useState(null)
   let [messageToSend, setMessageToSend] = useState('')
+  let [activeMembers, setActiveMembers] = useState(0)
 
   useEffect(() => {
     socket.on('nsList', (nsList) => {
@@ -53,6 +53,7 @@ function App() {
     if (nsSocket) {
       nsSocket.emit('joinRoom', roomActive, (newNumberOfMembers) => {
         // update number of members
+        // TODO dunno if it's usefull or not
         console.log('ROOOOOm  JOINEEEd CB')
       })
       // TODO not sure about this below
@@ -64,7 +65,7 @@ function App() {
       }
   
       nsSocket.on('updateMembers', (numMembers) => {
-        // update number of members of the room
+        setActiveMembers(numMembers)
       })
     }
   }, [roomActive])
@@ -83,7 +84,13 @@ function App() {
           <Namespaces namespaces={namespaces} selectNs={setNsActive}></Namespaces>
           <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
           { roomActive ? 
-            <Chat messages={messages} setMessageToSend={setMessageToSend}></Chat>
+              <Chat 
+                messages={messages} 
+                setMessageToSend={setMessageToSend}
+                roomName={roomActive}
+                activeMembers={activeMembers}
+              >
+              </Chat>
             : null
           }
         </Grid.Row>
