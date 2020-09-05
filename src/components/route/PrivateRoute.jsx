@@ -6,17 +6,18 @@ let authenticated = localStorage.getItem('chatToken')
 export const PrivateRoute = ({
   component: Component,
   ...rest
-}) => (
-  <Route
-    {...rest}
-    component={ (props) =>
-      authenticated ? 
-      <React.StrictMode>
-        <Component {...props} /> 
-      </React.StrictMode> : <Redirect to="/" />
-    }
-  />
-);
+}) => {
+  return (
+    <Route
+      {...rest}
+      component={ (props) =>
+        authenticated ? 
+        <React.StrictMode>
+          <Component {...props} /> 
+        </React.StrictMode> : <Redirect to="/chat" />
+      }
+    />
+  )};
   
 
 export default PrivateRoute;

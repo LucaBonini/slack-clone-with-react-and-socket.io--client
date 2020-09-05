@@ -27,7 +27,7 @@ function Chat({ messages, setMessageToSend, roomName, activeMembers }) {
             placeholder='your message here...' 
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <Button>Send</Button>
+          <Button  type='submit'>Send</Button>
         </Form>
       </Grid.Column>
   )

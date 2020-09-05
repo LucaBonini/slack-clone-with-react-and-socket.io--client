@@ -5,10 +5,23 @@ import { Grid } from 'semantic-ui-react'
 import Namespaces from './components/Namespaces'
 import Rooms from './components/Rooms'
 import Chat from './components/Chat'
-const socket = io('http://localhost:3000')
+const BASE_URL = 'http://localhost:3000'
+
+const getAuth = () => {
+  return {
+    transportOptions: {
+      polling: {
+        extraHeaders: {
+          'authorization': `Bearer ${localStorage.getItem('chatToken') || ''}`
+        }
+      }
+    }
+  }
+}
+
+const socket = io(BASE_URL, getAuth())
 
 function App() {
-
   let [nsSocket, setNsSocket] = useState(null)
   const [namespaces, setNamespaces] = useState([])
   let [rooms, setRooms] = useState([])
@@ -18,22 +31,22 @@ function App() {
   let [messageToSend, setMessageToSend] = useState('')
   let [activeMembers, setActiveMembers] = useState(0)
 
-  // TODO add the bearer in the headers using io.on
-  // useEffect(() => {
-  //   io.on()
-  // }, [])
-
   useEffect(() => {
     socket.on('nsList', (nsList) => {
       setNamespaces(nsList)
     })
-  }, [namespaces])
+    socket.on('error', (err) => {
+      localStorage.removeItem('chatToken')
+      console.log(err, 'ERR')
+      window.location.href = BASE_URL+'/chat'
+    })
+  }, [namespaces, socket])
 
   useEffect(() => {    
     if (nsSocket) {
       nsSocket.close()
     }
-    setNsSocket(io(`http://localhost:3000${nsActive}`))
+    setNsSocket(io(`${BASE_URL}${nsActive}`, getAuth()))
   },[nsActive])
 
   useEffect(() => {
@@ -43,6 +56,10 @@ function App() {
       })
       nsSocket.on('messageToClients', (msg) => {
         setMessages([...messages, msg])
+      })
+      nsSocket.on('error', (err) => {
+        localStorage.removeItem('chatToken')
+        window.location.href = BASE_URL+'/chat'
       })
     }
   }, [nsSocket, messages])

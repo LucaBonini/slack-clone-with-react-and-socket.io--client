@@ -6,16 +6,19 @@ function Login() {
   let [username, setUsername] = useState(null)
   let [password, setPassword] = useState(null)
   const handleSubmit = async () => {
-    try {
-      let token = (await axios.post('http://localhost:3000/auth/chat', {
+
+    axios.post('http://localhost:3000/auth/chat', {
         username,
         password
-      })).data
-      localStorage.setItem('chatToken', token)
-     window.location.href = 'http://localhost:3001/'
-    } catch (error) {
-      console.log(error)
-    }
+      })
+    .then(res => {
+      localStorage.setItem('chatToken', res.data)
+      window.location.href = 'http://localhost:3000/chat'
+    })
+    .catch(err => {
+      // TODO HANDLE WRONG CREDENTIALS
+      console.log(err)
+    })
   }
   return (
     <Container>
@@ -26,7 +29,7 @@ function Login() {
         </Form.Field>
         <Form.Field value={password} onChange={(e) => setPassword(e.target.value)}>
           <label>Password</label>
-          <input placeholder='Password' />
+          <input placeholder='Password' type="password"/>
         </Form.Field>
         <Button type='submit'>Submit</Button>
       </Form>

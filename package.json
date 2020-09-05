@@ -7,6 +7,8 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
+    "babel-polyfill": "^6.26.0",
+    "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -16,10 +18,9 @@
     "socket.io-client": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "parcel public/index.html",
+    "build": "NODE_ENV=development parcel build public/index.html  --no-minify --no-source-maps --public-url /chat",
+    "copy": "rm -rf ../server/chat-react && cp -R ./dist ../server/chat-react"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +36,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
