@@ -32,8 +32,8 @@ function App() {
   let [activeMembers, setActiveMembers] = useState(0)
 
   useEffect(() => {
-    socket.on('nsList', (nsList) => {
-      setNamespaces(nsList)
+    socket.on('userData', (userData) => {
+      setNamespaces(userData.nsList)
     })
     socket.on('error', (err) => {
       localStorage.removeItem('chatToken')
@@ -78,7 +78,9 @@ function App() {
         console.log('ROOOOOm  JOINEEEd CB')
       })
       // TODO not sure about this below
-      nsSocket.removeListener('getHistory').removeListener('updateMembers')
+      nsSocket.removeListener('getHistory')
+        .removeListener('updateMembers')
+        .removeListener('error')
       if (roomActive) {
         nsSocket.on('getHistory', (history) => {
           setMessages(history)

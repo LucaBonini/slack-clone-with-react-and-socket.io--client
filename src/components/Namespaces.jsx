@@ -8,7 +8,7 @@ function namespaces(props) {
       {props.namespaces.map(ns => {
         return (
           <Grid.Row key={ns.endpoint + ns.id}>
-            <Image src={ns.img} onClick={() => props.selectNs(ns.endpoint)}></Image>
+            <Image src={ns.img} bordered={true} onClick={() => props.selectNs(ns.endpoint)}></Image>
           </Grid.Row>
         )
       })}

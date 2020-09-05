@@ -1,16 +1,16 @@
 import React from 'react';
-import { List } from 'semantic-ui-react'
+import { Comment } from 'semantic-ui-react'
 import Message from './Message'
 
 function messages({ messages }) {
   return (
-      <List floated={'left'}>
+      <Comment.Group floated={'left'}>
         {
           messages.map(msg => {
-            return <Message key={msg.date} text={msg.text}></Message>
+            return <Message key={msg.date} msg={msg}></Message>
           })
         }
-      </List>
+      </Comment.Group>
   )
 }
 
