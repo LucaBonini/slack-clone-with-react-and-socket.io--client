@@ -9,8 +9,10 @@ function rooms(props) {
           props.rooms.map(room => {
             return (
               <List.Item key={room.roomId} onClick={() => props.selectRoom(room.roomTitle)}>
-                <Icon name='chat'></Icon>
-                {room.roomTitle}
+                <List.Icon name='chat'/>
+                <List.Content>
+                  {room.roomTitle}
+                </List.Content>
               </List.Item>
             )
           })

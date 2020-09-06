@@ -28,14 +28,13 @@ code {
 
 .namespaces-container {
   background-color: #A0A0A0;
-  padding: 10px 5px;
 }
 
 .namespace {
   margin-bottom: 10px;
 }
 
-.rooms-container {
+.rooms-container, .chat-container, .namespaces-container {
   padding: 10px 5px;
 }
 

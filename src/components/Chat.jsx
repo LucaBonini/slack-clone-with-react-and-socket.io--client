@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Grid, Divider, Icon, Container, Ref } from 'semantic-ui-react'
+import { Form, Grid, Divider, Icon, Container, Ref, List } from 'semantic-ui-react'
 import Messages from './chat/Messages'
 
 function Chat({ messages, setMessageToSend, roomName, activeMembers, myRef }) {
@@ -13,10 +13,18 @@ function Chat({ messages, setMessageToSend, roomName, activeMembers, myRef }) {
   }
 
   return (
-      <Grid.Column width={13} style={{maxHeight: '100vh'}}>
+      <Grid.Column width={13} style={{maxHeight: '100vh'}} className="chat-container">
         <Container style={{height: '5%'}}>
-          {roomName}
-          <Icon name='user'>{activeMembers}</Icon>
+          <List>
+            <List.Item>
+              <List.Icon name='user'>
+                {activeMembers}
+              </List.Icon>
+              <List.Content>
+                {roomName}
+              </List.Content>
+            </List.Item>
+          </List>
         </Container>
         <Ref innerRef={myRef}>
           <Grid.Row className="messages-container">
