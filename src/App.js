@@ -30,17 +30,19 @@ function App() {
   let [roomActive, setRoomActive] = useState(null)
   let [messageToSend, setMessageToSend] = useState('')
   let [activeMembers, setActiveMembers] = useState(0)
+  let [user, setUser] = useState(null)
 
   useEffect(() => {
-    socket.on('userData', (userData) => {
-      setNamespaces(userData.nsList)
+    socket.on('userData', ({ username, nsList }) => {
+      setUser(username)
+      setNamespaces(nsList)
     })
     socket.on('error', (err) => {
       localStorage.removeItem('chatToken')
       console.log(err, 'ERR')
       window.location.href = appUrl+chatPath
     })
-  }, [namespaces, socket])
+  }, [namespaces, socket, user])
 
   useEffect(() => {    
     if (nsSocket) {
@@ -95,15 +97,17 @@ function App() {
 
   useEffect(() => {
     if (messageToSend) {
-      nsSocket.emit('newMessageToServer',{text: messageToSend})
+      nsSocket.emit('newMessageToServer', {
+        username: user,
+        text: messageToSend
+      })
       setMessageToSend('')
     }
   }, [messageToSend])
 
   return (
-    <div className="App">
-      <Grid>
-        <Grid.Row>
+      <Grid style={{height: '100vh'}} padded>
+        <Grid.Row style={{height: '100%'}}>
           <Namespaces namespaces={namespaces} selectNs={setNsActive}></Namespaces>
           <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
           { roomActive ? 
@@ -118,7 +122,6 @@ function App() {
           }
         </Grid.Row>
       </Grid>
-    </div>
   );
 }
 

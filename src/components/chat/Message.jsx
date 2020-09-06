@@ -1,8 +1,8 @@
 import React from 'react';
-import { List, Comment } from 'semantic-ui-react'
+import { Comment } from 'semantic-ui-react'
 import moment from 'moment'
 
-function message({ msg: {username, text, date}, key }) {
+function message({ msg: {username, text, date} }) {
   const parsedDate = moment.unix(date).fromNow()
   return (
     <Comment>
