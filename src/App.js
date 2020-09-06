@@ -5,7 +5,7 @@ import { Grid } from 'semantic-ui-react'
 import Namespaces from './components/Namespaces'
 import Rooms from './components/Rooms'
 import Chat from './components/Chat'
-const BASE_URL = 'http://localhost:3000'
+import { appUrl, chatPath, serverUrl } from '../config'
 
 const getAuth = () => {
   return {
@@ -19,7 +19,7 @@ const getAuth = () => {
   }
 }
 
-const socket = io(BASE_URL, getAuth())
+const socket = io(serverUrl, getAuth())
 
 function App() {
   let [nsSocket, setNsSocket] = useState(null)
@@ -38,7 +38,7 @@ function App() {
     socket.on('error', (err) => {
       localStorage.removeItem('chatToken')
       console.log(err, 'ERR')
-      window.location.href = BASE_URL+'/chat'
+      window.location.href = appUrl+chatPath
     })
   }, [namespaces, socket])
 
@@ -46,7 +46,7 @@ function App() {
     if (nsSocket) {
       nsSocket.close()
     }
-    setNsSocket(io(`${BASE_URL}${nsActive}`, getAuth()))
+    setNsSocket(io(`${serverUrl}${nsActive}`, getAuth()))
   },[nsActive])
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function App() {
       })
       nsSocket.on('error', (err) => {
         localStorage.removeItem('chatToken')
-        window.location.href = BASE_URL+'/chat'
+        window.location.href = appUrl+chatPath
       })
     }
   }, [nsSocket, messages])

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Container, Form } from 'semantic-ui-react'
 import axios from 'axios'
+import { appUrl, chatPath } from '../../config.js'
 
 function Login() {
   let [username, setUsername] = useState(null)
@@ -13,7 +14,7 @@ function Login() {
       })
     .then(res => {
       localStorage.setItem('chatToken', res.data)
-      window.location.href = 'http://localhost:3000/chat'
+      window.location.href = appUrl+chatPath
     })
     .catch(err => {
       // TODO HANDLE WRONG CREDENTIALS
