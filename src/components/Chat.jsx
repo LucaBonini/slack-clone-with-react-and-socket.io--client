@@ -13,7 +13,7 @@ function Chat({ messages, setMessageToSend, roomName, activeMembers, myRef }) {
   }
 
   return (
-      <Grid.Column width={12} style={{maxHeight: '100vh'}}>
+      <Grid.Column width={13} style={{maxHeight: '100vh'}}>
         <Container style={{height: '5%'}}>
           {roomName}
           <Icon name='user'>{activeMembers}</Icon>

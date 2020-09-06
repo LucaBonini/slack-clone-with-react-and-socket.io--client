@@ -117,7 +117,7 @@ function App() {
   }, [messageToSend])
 
   return (
-      <Grid style={{height: '100vh'}} padded>
+      <Grid style={{height: '100vh'}} padded={true}>
         <Grid.Row style={{height: '100%', overflow: 'hidden'}}>
           <Namespaces namespaces={namespaces} selectNs={setNsActive}></Namespaces>
           <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
@@ -130,7 +130,8 @@ function App() {
                 myRef={myRef}
               >
               </Chat>
-            : <Grid.Column width={12} verticalAlign='middle'>
+            : 
+              <Grid.Column width={12} verticalAlign='middle'>
                 <Header textAlign='center' as='h1'>Select a workspace to start</Header>
               </Grid.Column>
           }

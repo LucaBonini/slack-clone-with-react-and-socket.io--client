@@ -3,7 +3,7 @@ import { List, Grid, Icon } from 'semantic-ui-react'
 
 function rooms(props) {
   return (
-    <Grid.Column width={2}>
+    <Grid.Column width={2} className="rooms-container">
       <List floated='left'>
         {
           props.rooms.map(room => {
