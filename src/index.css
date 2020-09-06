@@ -41,3 +41,7 @@ code {
 .ns-active {
   border: 2px solid black !important;
 }
+
+.item {
+  cursor: pointer;
+}
