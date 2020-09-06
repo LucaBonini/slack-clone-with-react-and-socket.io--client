@@ -38,3 +38,7 @@ code {
 .rooms-container {
   padding: 10px 5px;
 }
+
+.ns-active {
+  border: 2px solid black !important;
+}

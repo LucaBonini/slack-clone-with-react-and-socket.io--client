@@ -119,7 +119,7 @@ function App() {
   return (
       <Grid style={{height: '100vh'}} padded={true}>
         <Grid.Row style={{height: '100%', overflow: 'hidden'}}>
-          <Namespaces namespaces={namespaces} selectNs={setNsActive}></Namespaces>
+          <Namespaces namespaces={namespaces} selectNs={setNsActive} nsActive={nsActive}></Namespaces>
           <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
           { roomActive ? 
               <Chat 

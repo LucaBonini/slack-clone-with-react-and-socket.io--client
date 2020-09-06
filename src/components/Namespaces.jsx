@@ -2,13 +2,14 @@ import React from 'react';
 import { Grid, Image } from 'semantic-ui-react'
 
 
-function namespaces(props) {
+function namespaces({ namespaces, selectNs, nsActive }) {
   return (
     <Grid.Column width={1} className="namespaces-container">
-      {props.namespaces.map(ns => {
+      {namespaces.map(ns => {
+        let activeClass = nsActive === ns.endpoint ? 'ns-active' : ''
         return (
           <Grid.Row key={ns.endpoint + ns.id} className="namespace">
-            <Image src={ns.img} fluid={true} circular={true} bordered={true} onClick={() => props.selectNs(ns.endpoint)}></Image>
+            <Image className={activeClass} src={ns.img} fluid={true} circular={true} bordered={true} onClick={() => selectNs(ns.endpoint)}></Image>
           </Grid.Row>
         )
       })}
