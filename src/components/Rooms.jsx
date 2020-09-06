@@ -1,14 +1,15 @@
 import React from 'react';
 import { List, Grid, Icon } from 'semantic-ui-react'
 
-function rooms(props) {
+function rooms({ rooms, selectRoom, roomActive}) {
   return (
     <Grid.Column width={2} className="rooms-container">
       <List floated='left'>
         {
-          props.rooms.map(room => {
+          rooms.map(room => {
+            let activeClass = room.roomTitle === roomActive ? 'font-bold' : ''
             return (
-              <List.Item key={room.roomId} onClick={() => props.selectRoom(room.roomTitle)}>
+              <List.Item className={activeClass} key={room.roomId} onClick={() => selectRoom(room.roomTitle)}>
                 <List.Icon name='chat'/>
                 <List.Content>
                   {room.roomTitle}

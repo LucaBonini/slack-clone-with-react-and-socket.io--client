@@ -117,10 +117,10 @@ function App() {
   }, [messageToSend])
 
   return (
-      <Grid style={{height: '100vh'}} padded={true}>
+      <Grid style={{height: '100vh', backgroundColor: '#3F0F3F'}} padded={true}>
         <Grid.Row style={{height: '100%', overflow: 'hidden'}}>
           <Namespaces namespaces={namespaces} selectNs={setNsActive} nsActive={nsActive}></Namespaces>
-          <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
+          <Rooms rooms={rooms} selectRoom={setRoomActive} roomActive={roomActive}></Rooms>
           { roomActive ? 
               <Chat 
                 messages={messages} 

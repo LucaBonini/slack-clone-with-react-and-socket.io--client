@@ -27,7 +27,7 @@ code {
 }
 
 .namespaces-container {
-  background-color: #A0A0A0;
+  background-color: #2d2b3a;
 }
 
 .namespace {
@@ -38,10 +38,22 @@ code {
   padding: 10px 5px;
 }
 
+.chat-container {
+  background-color: white;
+}
+
+.rooms-container {
+  color: white;
+}
+
 .ns-active {
-  border: 2px solid black !important;
+  border: 2px solid white !important;
 }
 
 .item {
   cursor: pointer;
+}
+
+.font-bold {
+  font-weight: bold !important;
 }
