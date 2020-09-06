@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client'
 import 'semantic-ui-css/semantic.min.css'
 import { Grid } from 'semantic-ui-react'
@@ -31,6 +31,12 @@ function App() {
   let [messageToSend, setMessageToSend] = useState('')
   let [activeMembers, setActiveMembers] = useState(0)
   let [user, setUser] = useState(null)
+  let myRef = useRef(null)
+
+  const scrollMessages = () => {
+    const { current } = myRef
+    current.scroll(current.offsetHeight, current.offsetWidth)
+  }
 
   useEffect(() => {
     socket.on('userData', ({ username, nsList }) => {
@@ -61,6 +67,7 @@ function App() {
       })
       nsSocket.on('messageToClients', (msg) => {
         setMessages([...messages, msg])
+        scrollMessages()
       })
       nsSocket.on('error', (err) => {
         localStorage.removeItem('chatToken')
@@ -89,6 +96,7 @@ function App() {
       if (roomActive) {
         nsSocket.on('getHistory', (history) => {
           setMessages(history)
+          scrollMessages()
         })
       }
   
@@ -119,6 +127,7 @@ function App() {
                 setMessageToSend={setMessageToSend}
                 roomName={roomActive}
                 activeMembers={activeMembers}
+                myRef={myRef}
               >
               </Chat>
             : null
