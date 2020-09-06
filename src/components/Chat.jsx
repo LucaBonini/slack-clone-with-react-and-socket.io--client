@@ -14,13 +14,13 @@ function Chat({ messages, setMessageToSend, roomName, activeMembers, myRef }) {
 
   return (
       <Grid.Column width={12} style={{maxHeight: '100vh'}}>
+        <Container style={{height: '5%'}}>
+          {roomName}
+          <Icon name='user'>{activeMembers}</Icon>
+        </Container>
         <Ref innerRef={myRef}>
           <Grid.Row className="messages-container">
             <Grid.Column width={16}>
-              <Container>
-                {roomName}
-                <Icon name='user'>{activeMembers}</Icon>
-              </Container>
               <Divider></Divider>
               <Messages messages={messages}></Messages>
             </Grid.Column>

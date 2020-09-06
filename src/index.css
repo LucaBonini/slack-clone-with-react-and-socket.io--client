@@ -21,7 +21,7 @@ code {
 }
 
 .messages-container {
-  height: 70%;
-  max-height: 70%;
+  height: 65%;
+  max-height: 65%;
   overflow: auto;
 }

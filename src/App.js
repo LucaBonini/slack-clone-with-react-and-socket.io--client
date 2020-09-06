@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client'
 import 'semantic-ui-css/semantic.min.css'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Header } from 'semantic-ui-react'
 import Namespaces from './components/Namespaces'
 import Rooms from './components/Rooms'
 import Chat from './components/Chat'
@@ -118,7 +118,7 @@ function App() {
 
   return (
       <Grid style={{height: '100vh'}} padded>
-        <Grid.Row style={{height: '100%'}}>
+        <Grid.Row style={{height: '100%', overflow: 'hidden'}}>
           <Namespaces namespaces={namespaces} selectNs={setNsActive}></Namespaces>
           <Rooms rooms={rooms} selectRoom={setRoomActive}></Rooms>
           { roomActive ? 
@@ -130,7 +130,9 @@ function App() {
                 myRef={myRef}
               >
               </Chat>
-            : null
+            : <Grid.Column width={12} verticalAlign='middle'>
+                <Header textAlign='center' as='h1'>Select a workspace to start</Header>
+              </Grid.Column>
           }
         </Grid.Row>
       </Grid>
