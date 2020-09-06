@@ -28,6 +28,7 @@ code {
 
 .namespaces-container {
   background-color: #2d2b3a;
+  border-radius: 5px;
 }
 
 .namespace {
@@ -40,6 +41,8 @@ code {
 
 .chat-container {
   background-color: white;
+  max-height: 100vh;
+  border-radius: 5px;
 }
 
 .rooms-container {
@@ -48,6 +51,7 @@ code {
 
 .ns-active {
   border: 2px solid white !important;
+  border-radius: 5px;
 }
 
 .item {
@@ -56,4 +60,9 @@ code {
 
 .font-bold {
   font-weight: bold !important;
+}
+
+.main-container {
+  height: 100vh;
+  background-color: #9b5656;
 }

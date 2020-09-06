@@ -13,7 +13,7 @@ function Chat({ messages, setMessageToSend, roomName, activeMembers, myRef }) {
   }
 
   return (
-      <Grid.Column width={13} style={{maxHeight: '100vh'}} className="chat-container">
+      <Grid.Column width={13} className="chat-container">
         <Container style={{height: '5%'}}>
           <List>
             <List.Item>
@@ -39,7 +39,6 @@ function Chat({ messages, setMessageToSend, roomName, activeMembers, myRef }) {
             <Form error onSubmit={(e)=> formSubmission(e)}>
               <Form.Input 
                 value={inputValue} 
-                label='message' 
                 placeholder='your message here...' 
                 onChange={(e) => setInputValue(e.target.value)}
               />
