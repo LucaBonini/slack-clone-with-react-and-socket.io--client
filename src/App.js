@@ -39,9 +39,9 @@ function App() {
   }
 
   useEffect(() => {
-    socket.on('userData', ({ username, nsList }) => {
-      setUser(username)
-      setNamespaces(nsList)
+    socket.on('userData', (user) => {
+      setUser(user)
+      setNamespaces(user.nsList)
     })
     socket.on('error', (err) => {
       localStorage.removeItem('chatToken')
@@ -109,8 +109,9 @@ function App() {
   useEffect(() => {
     if (messageToSend) {
       nsSocket.emit('newMessageToServer', {
-        username: user,
-        text: messageToSend
+        username: user.username,
+        text: messageToSend,
+        avatar: user.avatar
       })
       setMessageToSend('')
     }
