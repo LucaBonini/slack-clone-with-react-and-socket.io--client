@@ -39,7 +39,10 @@ function App() {
     })
     socket.on('error', (err) => {
       localStorage.removeItem('chatToken')
-      console.log(err, 'ERR')
+      window.location.href = appUrl+chatPath
+    })
+    socket.on('errorAuth', (err) => {
+      localStorage.removeItem('chatToken')
       window.location.href = appUrl+chatPath
     })
   }, [namespaces, socket, user])
