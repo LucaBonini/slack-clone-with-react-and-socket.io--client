@@ -9,7 +9,7 @@ function namespaces({ namespaces, selectNs, nsActive }) {
         let activeClass = nsActive === ns.endpoint ? 'ns-active' : ''
         return (
           <Grid.Row key={ns.endpoint + ns.id} className="namespace">
-            <Image className={activeClass} src={ns.img} fluid={true} circular={true} bordered={true} onClick={() => selectNs(ns.endpoint)}></Image>
+            <Image className={activeClass} src={ns.img} fluid={true} bordered={true} onClick={() => selectNs(ns.endpoint)}></Image>
           </Grid.Row>
         )
       })}
