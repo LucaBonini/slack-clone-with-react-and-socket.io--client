@@ -6,6 +6,7 @@ import Namespaces from './components/Namespaces'
 import Rooms from './components/Rooms'
 import Chat from './components/Chat'
 import { appUrl, chatPath, serverUrl } from '../config'
+import { useHistory } from "react-router-dom";
 
 const getAuth = () => {
   return {
@@ -22,6 +23,7 @@ const getAuth = () => {
 const socket = io(serverUrl, getAuth())
 
 function App() {
+  let history = useHistory()
   let [nsSocket, setNsSocket] = useState(null)
   const [namespaces, setNamespaces] = useState([])
   let [rooms, setRooms] = useState([])
@@ -45,11 +47,13 @@ function App() {
     })
     socket.on('error', (err) => {
       localStorage.removeItem('chatToken')
-      window.location.href = appUrl+chatPath
+      // window.location.href = appUrl+chatPath
+      history.push(chatPath || '/')
     })
     socket.on('errorAuth', (err) => {
       localStorage.removeItem('chatToken')
-      window.location.href = appUrl+chatPath
+      // window.location.href = appUrl+chatPath
+      history.push(chatPath || '/')
     })
   }, [namespaces, socket, user])
 
@@ -71,7 +75,8 @@ function App() {
       })
       nsSocket.on('error', (err) => {
         localStorage.removeItem('chatToken')
-        window.location.href = appUrl+chatPath
+        // window.location.href = appUrl+chatPath
+        history.push(chatPath || '/')
       })
     }
   }, [nsSocket, messages])

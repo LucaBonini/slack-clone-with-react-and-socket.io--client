@@ -1,25 +1,23 @@
 import React, { useState } from 'react'
 import { Button, Container, Form } from 'semantic-ui-react'
 import axios from 'axios'
-import { appUrl, chatPath } from '../../config.js'
+import { appUrl, chatPath, serverAuthPath, serverUrl } from '../../config.js'
 
 function Login() {
   let [username, setUsername] = useState(null)
   let [password, setPassword] = useState(null)
   const handleSubmit = async () => {
-
-    axios.post('http://localhost:3000/auth/chat', {
-        username,
-        password
-      })
-    .then(res => {
+    try {
+      let res = await axios.post(`${serverUrl}${serverAuthPath}`, {
+          username,
+          password
+        })
       localStorage.setItem('chatToken', res.data)
       window.location.href = appUrl+chatPath
-    })
-    .catch(err => {
-      // TODO HANDLE WRONG CREDENTIALS
-      console.log(err)
-    })
+    } catch (error) {
+      //   // TODO HANDLE WRONG CREDENTIALS
+      console.log(error)
+    }
   }
   return (
     <Container>
