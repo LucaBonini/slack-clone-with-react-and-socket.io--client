@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Button, Container, Form } from 'semantic-ui-react'
 import axios from 'axios'
-import { appUrl, chatPath, serverAuthPath, serverUrl } from '../../config.js'
-import { useDispatch, useSelector, connect } from "react-redux";
-import { login } from '../actions'
+import { serverAuthPath, serverUrl } from '../../config.js'
+import { useDispatch } from "react-redux";
+import io from 'socket.io-client'
+import { getAuth } from '../helpers'
+import { AUTH_USER } from '..reducers/'
 
 function Login() {
   let [username, setUsername] = useState(null)
@@ -17,9 +19,11 @@ function Login() {
         })
       localStorage.setItem('chatToken', res.data)
       dispatch({
-        type: 'auth_user'
+        type: AUTH_USER,
+        payload: {
+          socket: io(serverUrl, getAuth())
+        }
       })
-      // window.location.href = 'http://localhost:1234/'
     } catch (error) {
       //   // TODO HANDLE WRONG CREDENTIALS
       console.log(error)

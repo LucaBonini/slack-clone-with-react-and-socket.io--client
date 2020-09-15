@@ -7,23 +7,13 @@ import Rooms from './components/Rooms'
 import Chat from './components/Chat'
 import { appUrl, chatPath, serverUrl } from '../config'
 import { useHistory } from "react-router-dom";
-
-const getAuth = () => {
-  return {
-    transportOptions: {
-      polling: {
-        extraHeaders: {
-          'authorization': `Bearer ${localStorage.getItem('chatToken') || ''}`
-        }
-      }
-    }
-  }
-}
-
-const socket = io(serverUrl, getAuth())
+import { useDispatch, useSelector } from 'react-redux'
+import { getAuth } from './helpers'
+import { LOGOUT_USER } from './reducers'
 
 function App() {
-
+  const socket = useSelector(state => state.socket)
+  let dispatch = useDispatch()
   let history = useHistory()
   let [nsSocket, setNsSocket] = useState(null)
   const [namespaces, setNamespaces] = useState([])
@@ -42,19 +32,25 @@ function App() {
   }
 
   useEffect(() => {
+    if (!socket) {
+      dispatch({
+        type: LOGOUT_USER
+      })
+      return
+    }
     socket.on('userData', (user) => {
       setUser(user)
       setNamespaces(user.nsList)
     })
     socket.on('error', (err) => {
-      localStorage.removeItem('chatToken')
-      // window.location.href = appUrl+chatPath
-      history.push(chatPath || '/')
+      dispatch({
+        type: LOGOUT_USER
+      })
     })
     socket.on('errorAuth', (err) => {
-      localStorage.removeItem('chatToken')
-      // window.location.href = appUrl+chatPath
-      history.push(chatPath || '/')
+      dispatch({
+        type: LOGOUT_USER
+      })
     })
   }, [namespaces, socket, user])
 
