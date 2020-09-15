@@ -120,7 +120,7 @@ function App() {
   }, [messageToSend])
 
   return (
-      <Grid className="main-container" padded={true}>
+      <Grid className="main-container" padded={true} stackable={true}>
         <Grid.Row style={{height: '100%', overflow: 'hidden'}}>
           <Namespaces namespaces={namespaces} selectNs={setNsActive} nsActive={nsActive}></Namespaces>
           <Rooms rooms={rooms} selectRoom={setRoomActive} roomActive={roomActive}></Rooms>
