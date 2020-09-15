@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { Button, Container, Form } from 'semantic-ui-react'
 import axios from 'axios'
 import { appUrl, chatPath, serverAuthPath, serverUrl } from '../../config.js'
+import { useDispatch, useSelector, connect } from "react-redux";
+import { login } from '../actions'
 
 function Login() {
   let [username, setUsername] = useState(null)
   let [password, setPassword] = useState(null)
+  const dispatch = useDispatch()
   const handleSubmit = async () => {
     try {
       let res = await axios.post(`${serverUrl}${serverAuthPath}`, {
@@ -13,7 +16,10 @@ function Login() {
           password
         })
       localStorage.setItem('chatToken', res.data)
-      window.location.href = appUrl+chatPath
+      dispatch({
+        type: 'auth_user'
+      })
+      // window.location.href = 'http://localhost:1234/'
     } catch (error) {
       //   // TODO HANDLE WRONG CREDENTIALS
       console.log(error)

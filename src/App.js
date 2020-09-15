@@ -23,6 +23,7 @@ const getAuth = () => {
 const socket = io(serverUrl, getAuth())
 
 function App() {
+
   let history = useHistory()
   let [nsSocket, setNsSocket] = useState(null)
   const [namespaces, setNamespaces] = useState([])
