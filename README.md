@@ -1,6 +1,7 @@
 # Slack clone with React and Socket.IO
 
-Slack clone with React and Socket.IO is a basic chat app to comunicate in real time.
+Slack clone with [React](https://github.com/facebook/react) and [Socket.IO](https://github.com/socketio/socket.io) is a basic chat app to comunicate in real time.
+The UI freamwork used in this projetc is [Semantic UI](https://github.com/Semantic-Org/Semantic-UI)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
