@@ -22,7 +22,8 @@
   },
   "scripts": {
     "start": "parcel public/index.html",
-    "build": "NODE_ENV=development parcel build public/index.html  --no-minify --no-source-maps --public-url /chat",
+		"build-dev": "NODE_ENV=development parcel build public/index.html  --no-minify --no-source-maps --public-url /chat",
+		"build": "NODE_ENV=production parcel build public/index.html --no-source-maps --out-file chat.min.js",
     "copy": "rm -rf ../server/chat-react && cp -R ./dist ../server/chat-react"
   },
   "eslintConfig": {
