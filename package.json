@@ -1,5 +1,5 @@
 {
-  "name": "chat-react-new",
+  "name": "slack-clone-with-react-and-socket.io--client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
