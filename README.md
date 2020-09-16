@@ -1,7 +1,7 @@
 # Slack clone with React and Socket.IO
 
-Slack clone with [React](https://github.com/facebook/react) and [Socket.IO](https://github.com/socketio/socket.io) is a basic chat app to comunicate in real time.
-The UI freamwork used in this projetc is [Semantic UI](https://github.com/Semantic-Org/Semantic-UI)
+Slack clone with [React](https://github.com/facebook/react) and [Socket.IO](https://github.com/socketio/socket.io) is a basic chat app to comunicate in real time. <br />
+The UI freamwork used in this project is [Semantic UI](https://github.com/Semantic-Org/Semantic-UI)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 install the dependencies
 ```bash
-	npm install
+npm install
 ```
 
 to start the server
