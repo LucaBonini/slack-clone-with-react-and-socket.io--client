@@ -58,7 +58,7 @@ function App() {
     if (nsSocket) {
       nsSocket.close()
     }
-    setNsSocket(io(`${serverUrl}${nsActive}`, getAuth()))
+    setNsSocket(io(`${serverUrl}${nsActive || ''}`, getAuth()))
   },[nsActive])
 
   useEffect(() => {
